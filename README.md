@@ -13,7 +13,7 @@ The project is just being developed and may have some errors and inaccuracies.
 
 ### Main tasks:
 - [ ] Designed construction and models
-- [x] Developed the main board
+- [x] Developed main board
 - [ ] Developed sensor board
 - [ ] Electronics tested 
 - [ ] Developed initial software
