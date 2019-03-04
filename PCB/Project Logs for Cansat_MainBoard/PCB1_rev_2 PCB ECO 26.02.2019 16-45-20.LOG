@@ -1,0 +1,18 @@
+Removed Pin From Net: NetName=RST Pin=D5-7
+Removed Pin From Net: NetName=RST Pin=R33-1
+Added Component: Designator=S2(B3U-1000P)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://omronfs.omron.com/en_US/ecb/products/pdf/en-b3u.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Omron Electronics"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "B3U1000P"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "RS Part Number"; Value = "0419867P"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "RS Price/Stock"; Value = "http://uk.rs-online.com/web/p/products/0419867P"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=S2-2
+Added Pin To Net: NetName=NetD5_7 Pin=D5-7
+Added Pin To Net: NetName=NetD5_7 Pin=R33-1
+Added Pin To Net: NetName=NetD5_7 Pin=S2-1
+Added Net: Name=NetD5_7
+Added Member To Class: ClassName=Scheme_1 Member=Component S2 B3U1000P
+Added Room: Name=Scheme_1

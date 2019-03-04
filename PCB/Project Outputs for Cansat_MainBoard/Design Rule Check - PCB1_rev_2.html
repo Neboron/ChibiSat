@@ -1,0 +1,681 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD17\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">02.03.2019</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">11:45:07</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:04</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc" class="file"><acronym title="C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc">C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">1</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">98</td></tr>
+</table>
+</td>
+</table><a name="IDM1YBGUJRJI0CJB35HIJTFXEHVFEI32AZBVVHY0ED01OSHPPD4V3D"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDECPCLLQ0MYUTL0OIHRZFHZL1GIGYFU43KRAFPPNGCMWK0TBZFDXF">Design contains shelved or modified (but not repoured) polygons. The result of DRC is not correct. Recommended to restore/repour all polygons and proceed with DRC again</a></td>
+<td class="column2">1</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">1</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDM30A5X4Q22H4EQROS5QTOM12UEUBMLWHAE1QSMH0EJC0RVEZ4SOJ">Clearance Constraint (Gap=0.25mm) ((OnLayer('F2') OR OnLayer('F3')) AND InPolygon),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAO4HBDZHSXXJNNVV4ILAGNPNCNQTPQIK0GKQE4DFDIP4VVM1UEHF">Clearance Constraint (Gap=0.15mm) (InPolygon),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDQXDNBGEE20CTMEWSU3KQX3GVJFYU2QVQRAECIXIHUALYQQ5ZJHNP">Clearance Constraint (Gap=0.1mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDL1H1FCGT5225L5UGMLPJS0KDR4H3FK1XUM0OBE53NVWGIM0G4XK">Clearance Constraint (Gap=0.35mm) ((OnLayer('F2') OR OnLayer('F3')) AND IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDP13522ZMYY1MMC1KHSKI0N1FYELKRTJL2JOD50P41TU1IAIXNS0N">Clearance Constraint (Gap=0.3mm) (IsStitchingVia and InNet('GND')),((IsVia and (Not IsStitchingVia)) Or IsPad)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID2POMKG2IL450CQGH33FR3UTYIG0G0AZTG4AAJQENB5EQIDK2EBJB">Clearance Constraint (Gap=0.25mm) ((OnLayer('F2') OR OnLayer('F3')) AND IsVia),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDNUFX0IONKUHNDTL4TT140ARAUHJAE1SKSFIOZ4GPHEQZBODUTMTG">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">1</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDLPHQMSPGUEZ1BXZM3O3ZDBROSKGLEIYIYG2BHKDXXUO2RD3BKWOG">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDNCDQOM0XIDMTLZYXDUKWIXCZYJSZS2QTWSJEH3KL5EKI250LJTE">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">1</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDVYPBTDXY5SCFHZI1CDDCU1VT1L10E5JN4A0TCDKKUNYTY5CQ1R2J">Width Constraint (Min=0.1mm) (Max=1mm) (Preferred=0.1mm) (InNetClass('All Nets'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDPJT2FXX2CYTTBERIXOLSZUMDXFYPJZ1ZIEM2GLIQMYVXWMXL4JCL">Width Constraint (Min=0.1mm) (Max=10mm) (Preferred=0.3mm) (InNetClass('POWER'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID2UVOYNW3CRP5H411PHCDVG3XGNTSXOIH3F21Y0MZYXUESDENR0BO">Width Constraint (Min=0.1mm) (Max=1mm) (Preferred=0.2mm) (InNetClass('GND'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDBLF144GKJB3IMOZXCFHWMQYDKGRFORWMNNTY0VIHU5XYOVWGIDQ">Width Constraint (Min=0.1mm) (Max=2mm) (Preferred=1mm) (InNet('VIN'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDHDUPOFY1DIK2DKPK4ZCVJUFI3JROBUIMQ1WZYHLQ35LA3TJLDYAO">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.25mm) (Air Gap=0.25mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDYW5DYTOQTK2SOVHIWNP43V4TKKT52PRUZZXWN0NF1UX4G33VIGGN">Hole Size Constraint (Min=0.025mm) (Max=5mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDZO2MP5SP2P5VFJ11500DACKLMB0YOAXEK3WTYRM3OWJX5CMMUQRF">Hole To Hole Clearance (Gap=0.1mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDCOZKJUDWTBZZEW5ZTKU4BXMC3HJQE5OP0EGUGMHCBLSTIILK5MP">Minimum Solder Mask Sliver (Gap=0.01mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID55LMFVDBZESCOKPYZDPVEYLTNHBBEEBDB0MHB4ERYFZ2N35IHPQL">Silk To Solder Mask (Clearance=0.01mm) (IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDWR3WCBABAQSNPPT3UIEO4SHMVEEHDISQ3WP4PCCXQYK1Z03QHGEH">Silk to Silk (Clearance=0.1mm) (All),(All)</a></td>
+<td class="column2">86</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID25CL4RAPFYASGWZVBJEAHDMMDCS3OYMZFUQIYFMWXVRBVE1FSQO">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDJLGVRSKKYF2SDVPMFAHQ341JTQ0TWCAIVXDAVNBISXUJDBNDD5O">Board Clearance Constraint (Gap=0mm) (All)</a></td>
+<td class="column2">10</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDH5GUHOMOFJ0CDTTKAZDGZNBH0PGQUAA2J0EU31OL13XDHIO3P1XI">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">98</td>
+</tr>
+</table><br><a name="IDUIUPHWUSQY2JNTF0BXPORBTFPILOGQCICPF3FVHPXEBM3NBV1J0N"><h2>Warnings</h2></a><a name="IDECPCLLQ0MYUTL0OIHRZFHZL1GIGYFU43KRAFPPNGCMWK0TBZFDXF"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="warning">Design contains shelved or modified (but not repoured) polygons. The result of DRC is not correct. Recommended to restore/repour all polygons and proceed with DRC again</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1">Polygon named: Bottom Layer-No Net On Bottom Layer</td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDNUFX0IONKUHNDTL4TT140ARAUHJAE1SKSFIOZ4GPHEQZBODUTMTG"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Short-Circuit Constraint (Allowed=No) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2870.287mil|Location2.X=2901.366mil|Location1.Y=3665.563mil|Location2.Y=3696.642mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2870.287mil|Location2.X=2901.366mil|Location1.Y=3665.563mil|Location2.Y=3696.642mil|Absolute=True">Short-Circuit Constraint: Between Via (44.3mm,16.5mm) from Top Layer to Bottom Layer And Pad S1-3(44.3mm,16.5mm) on Bottom Layer Location : [X = 73.3mm][Y = 93.5mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDNCDQOM0XIDMTLZYXDUKWIXCZYJSZS2QTWSJEH3KL5EKI250LJTE"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Modified Polygon (Allow modified: No), (Allow shelved: No)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1141.732mil|Location2.X=3031.496mil|Location1.Y=3031.496mil|Location2.Y=4921.26mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1141.732mil|Location2.X=3031.496mil|Location1.Y=3031.496mil|Location2.Y=4921.26mil|Absolute=True">Modified Polygon: Polygon Not Repour After Edit  (Bottom Layer-No Net) on Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDWR3WCBABAQSNPPT3UIEO4SHMVEEHDISQ3WP4PCCXQYK1Z03QHGEH"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=0.1mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2949.665mil|Location2.X=2953.289mil|Location1.Y=3777.554mil|Location2.Y=3781.178mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2949.665mil|Location2.X=2953.289mil|Location1.Y=3777.554mil|Location2.Y=3781.178mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.1mm) Between Text "S1" (46.8mm,18.8mm) on Bottom Overlay And Arc (45.997mm,19.047mm) on Bottom Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1928.672mil|Location2.X=1933.859mil|Location1.Y=4316.468mil|Location2.Y=4321.655mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1928.672mil|Location2.X=1933.859mil|Location1.Y=4316.468mil|Location2.Y=4321.655mil|Absolute=True">Silk To Silk Clearance Constraint: (0.092mm &lt; 0.1mm) Between Text "LED_B" (19.4mm,34.075mm) on Top Overlay And Track (20.2mm,32.2mm)(20.2mm,34mm) on Top Overlay Silk Text to Silk Clearance [0.092mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1928.672mil|Location2.X=1933.859mil|Location1.Y=4367.485mil|Location2.Y=4372.672mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1928.672mil|Location2.X=1933.859mil|Location1.Y=4367.485mil|Location2.Y=4372.672mil|Absolute=True">Silk To Silk Clearance Constraint: (0.092mm &lt; 0.1mm) Between Text "LED_B" (19.4mm,34.075mm) on Top Overlay And Track (20.2mm,34mm)(23.8mm,34mm) on Top Overlay Silk Text to Silk Clearance [0.092mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2239.173mil|Location2.X=2244.36mil|Location1.Y=4334.904mil|Location2.Y=4340.091mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2239.173mil|Location2.X=2244.36mil|Location1.Y=4334.904mil|Location2.Y=4340.091mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "R32" (28.6mm,32.3mm) on Top Overlay And Track (27.8mm,32.2mm)(27.8mm,34mm) on Top Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2194.551mil|Location2.X=2199.738mil|Location1.Y=3720.207mil|Location2.Y=3725.394mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2194.551mil|Location2.X=2199.738mil|Location1.Y=3720.207mil|Location2.Y=3725.394mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "C11" (26.5mm,16.9mm) on Top Overlay And Track (26.4mm,17.7mm)(28.2mm,17.7mm) on Top Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2104mil|Location2.X=2109.187mil|Location1.Y=3720.207mil|Location2.Y=3725.394mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2104mil|Location2.X=2109.187mil|Location1.Y=3720.207mil|Location2.Y=3725.394mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "C10" (24.2mm,16.9mm) on Top Overlay And Track (24.2mm,17.7mm)(26mm,17.7mm) on Top Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2021.322mil|Location2.X=2026.509mil|Location1.Y=3720.207mil|Location2.Y=3725.394mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2021.322mil|Location2.X=2026.509mil|Location1.Y=3720.207mil|Location2.Y=3725.394mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "C13" (22.1mm,16.9mm) on Top Overlay And Track (22mm,17.7mm)(23.8mm,17.7mm) on Top Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1930.771mil|Location2.X=1935.958mil|Location1.Y=3720.207mil|Location2.Y=3725.394mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1930.771mil|Location2.X=1935.958mil|Location1.Y=3720.207mil|Location2.Y=3725.394mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "C12" (19.8mm,16.9mm) on Top Overlay And Track (19.8mm,17.7mm)(21.6mm,17.7mm) on Top Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1687.964mil|Location2.X=1693.151mil|Location1.Y=4735.463mil|Location2.Y=4740.65mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1687.964mil|Location2.X=1693.151mil|Location1.Y=4735.463mil|Location2.Y=4740.65mil|Absolute=True">Silk To Silk Clearance Constraint: (0.057mm &lt; 0.1mm) Between Text "X2" (13mm,42.7mm) on Top Overlay And Track (13mm,43.5mm)(37mm,43.5mm) on Top Overlay Silk Text to Silk Clearance [0.057mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1651.562mil|Location2.X=1656.749mil|Location1.Y=4735.278mil|Location2.Y=4740.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1651.562mil|Location2.X=1656.749mil|Location1.Y=4735.278mil|Location2.Y=4740.465mil|Absolute=True">Silk To Silk Clearance Constraint: (0.068mm &lt; 0.1mm) Between Text "X2" (13mm,42.7mm) on Top Overlay And Track (13mm,43.5mm)(13mm,47.5mm) on Top Overlay Silk Text to Silk Clearance [0.068mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1922.591mil|Location2.X=1927.778mil|Location1.Y=4585.792mil|Location2.Y=4590.98mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1922.591mil|Location2.X=1927.778mil|Location1.Y=4585.792mil|Location2.Y=4590.98mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "C5" (19.6mm,39.6mm) on Top Overlay And Track (17.55mm,39.4mm)(20.65mm,39.4mm) on Top Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2308.418mil|Location2.X=2313.605mil|Location1.Y=4585.792mil|Location2.Y=4590.98mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2308.418mil|Location2.X=2313.605mil|Location1.Y=4585.792mil|Location2.Y=4590.98mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "C3" (29.4mm,39.6mm) on Top Overlay And Track (27.35mm,39.4mm)(30.45mm,39.4mm) on Top Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1849.278mil|Location2.X=1854.465mil|Location1.Y=4085.793mil|Location2.Y=4090.979mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1849.278mil|Location2.X=1854.465mil|Location1.Y=4085.793mil|Location2.Y=4090.979mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "J1" (17.8mm,26.9mm) on Top Overlay And Track (17.6mm,26.7mm)(19mm,26.7mm) on Top Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2294.16mil|Location2.X=2299.347mil|Location1.Y=4085.793mil|Location2.Y=4090.979mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2294.16mil|Location2.X=2299.347mil|Location1.Y=4085.793mil|Location2.Y=4090.979mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "J2" (29.1mm,26.9mm) on Top Overlay And Track (29mm,26.7mm)(30.4mm,26.7mm) on Top Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2303.583mil|Location2.X=2308.77mil|Location1.Y=3720.207mil|Location2.Y=3725.394mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2303.583mil|Location2.X=2308.77mil|Location1.Y=3720.207mil|Location2.Y=3725.394mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "R23" (28.7mm,16.9mm) on Top Overlay And Track (28.6mm,17.7mm)(30.4mm,17.7mm) on Top Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1832.052mil|Location2.X=1837.239mil|Location1.Y=3720.01mil|Location2.Y=3725.197mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1832.052mil|Location2.X=1837.239mil|Location1.Y=3720.01mil|Location2.Y=3725.197mil|Absolute=True">Silk To Silk Clearance Constraint: (0.092mm &lt; 0.1mm) Between Text "R22" (17.6mm,16.9mm) on Top Overlay And Track (17.6mm,17.7mm)(17.6mm,21.3mm) on Top Overlay Silk Text to Silk Clearance [0.092mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1866.575mil|Location2.X=1871.762mil|Location1.Y=3720.207mil|Location2.Y=3725.394mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1866.575mil|Location2.X=1871.762mil|Location1.Y=3720.207mil|Location2.Y=3725.394mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "R22" (17.6mm,16.9mm) on Top Overlay And Track (17.6mm,17.7mm)(19.4mm,17.7mm) on Top Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1667.596mil|Location2.X=1672.783mil|Location1.Y=3881.593mil|Location2.Y=3886.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1667.596mil|Location2.X=1672.783mil|Location1.Y=3881.593mil|Location2.Y=3886.78mil|Absolute=True">Silk To Silk Clearance Constraint: (0.067mm &lt; 0.1mm) Between Text "SWC" (13.2mm,21.7mm) on Top Overlay And Track (11.2mm,21.5mm)(14.8mm,21.5mm) on Top Overlay Silk Text to Silk Clearance [0.067mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1586.302mil|Location2.X=1591.489mil|Location1.Y=3881.593mil|Location2.Y=3886.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1586.302mil|Location2.X=1591.489mil|Location1.Y=3881.593mil|Location2.Y=3886.78mil|Absolute=True">Silk To Silk Clearance Constraint: (0.067mm &lt; 0.1mm) Between Text "GND" (11.1mm,21.7mm) on Top Overlay And Track (11.2mm,21.5mm)(14.8mm,21.5mm) on Top Overlay Silk Text to Silk Clearance [0.067mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1720.484mil|Location2.X=1725.671mil|Location1.Y=3711.501mil|Location2.Y=3716.688mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1720.484mil|Location2.X=1725.671mil|Location1.Y=3711.501mil|Location2.Y=3716.688mil|Absolute=True">Silk To Silk Clearance Constraint: (0.081mm &lt; 0.1mm) Between Text "SWD" (13.2mm,16.8mm) on Top Overlay And Track (14.8mm,17.5mm)(14.8mm,21.5mm) on Top Overlay Silk Text to Silk Clearance [0.081mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1720.475mil|Location2.X=1725.662mil|Location1.Y=3881.667mil|Location2.Y=3886.854mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1720.475mil|Location2.X=1725.662mil|Location1.Y=3881.667mil|Location2.Y=3886.854mil|Absolute=True">Silk To Silk Clearance Constraint: (0.078mm &lt; 0.1mm) Between Text "SWC" (13.2mm,21.7mm) on Top Overlay And Track (14.8mm,17.5mm)(14.8mm,21.5mm) on Top Overlay Silk Text to Silk Clearance [0.078mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1668.069mil|Location2.X=1673.256mil|Location1.Y=3711.776mil|Location2.Y=3716.963mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1668.069mil|Location2.X=1673.256mil|Location1.Y=3711.776mil|Location2.Y=3716.963mil|Absolute=True">Silk To Silk Clearance Constraint: (0.06mm &lt; 0.1mm) Between Text "SWD" (13.2mm,16.8mm) on Top Overlay And Track (11.2mm,17.5mm)(14.8mm,17.5mm) on Top Overlay Silk Text to Silk Clearance [0.06mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1584.191mil|Location2.X=1589.378mil|Location1.Y=3711.776mil|Location2.Y=3716.963mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1584.191mil|Location2.X=1589.378mil|Location1.Y=3711.776mil|Location2.Y=3716.963mil|Absolute=True">Silk To Silk Clearance Constraint: (0.06mm &lt; 0.1mm) Between Text "3.3V" (11.1mm,16.8mm) on Top Overlay And Track (11.2mm,17.5mm)(14.8mm,17.5mm) on Top Overlay Silk Text to Silk Clearance [0.06mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1581.506mil|Location2.X=1586.693mil|Location1.Y=3711.717mil|Location2.Y=3716.904mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1581.506mil|Location2.X=1586.693mil|Location1.Y=3711.717mil|Location2.Y=3716.904mil|Absolute=True">Silk To Silk Clearance Constraint: (0.071mm &lt; 0.1mm) Between Text "3.3V" (11.1mm,16.8mm) on Top Overlay And Track (11.2mm,17.5mm)(11.2mm,21.5mm) on Top Overlay Silk Text to Silk Clearance [0.071mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1582.051mil|Location2.X=1587.238mil|Location1.Y=3881.753mil|Location2.Y=3886.94mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1582.051mil|Location2.X=1587.238mil|Location1.Y=3881.753mil|Location2.Y=3886.94mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "GND" (11.1mm,21.7mm) on Top Overlay And Track (11.2mm,17.5mm)(11.2mm,21.5mm) on Top Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1563.367mil|Location2.X=1568.554mil|Location1.Y=4483.43mil|Location2.Y=4488.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1563.367mil|Location2.X=1568.554mil|Location1.Y=4483.43mil|Location2.Y=4488.617mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "C6" (11.7mm,37mm) on Bottom Overlay And Track (10.6mm,36.8mm)(14.2mm,36.8mm) on Bottom Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1550.753mil|Location2.X=1555.94mil|Location1.Y=4330.054mil|Location2.Y=4335.241mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1550.753mil|Location2.X=1555.94mil|Location1.Y=4330.054mil|Location2.Y=4335.241mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "R33" (10.4mm,34.5mm) on Bottom Overlay And Track (10.6mm,32.8mm)(10.6mm,34.6mm) on Bottom Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1556.462mil|Location2.X=1561.649mil|Location1.Y=4228.081mil|Location2.Y=4233.268mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1556.462mil|Location2.X=1561.649mil|Location1.Y=4228.081mil|Location2.Y=4233.268mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "R34" (12.2mm,29.8mm) on Bottom Overlay And Track (10.6mm,30.6mm)(14.2mm,30.6mm) on Bottom Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1556.462mil|Location2.X=1561.649mil|Location1.Y=4228.081mil|Location2.Y=4233.268mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1556.462mil|Location2.X=1561.649mil|Location1.Y=4228.081mil|Location2.Y=4233.268mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "R34" (12.2mm,29.8mm) on Bottom Overlay And Track (10.6mm,30.6mm)(10.6mm,32.4mm) on Bottom Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1793.358mil|Location2.X=1798.545mil|Location1.Y=4228.081mil|Location2.Y=4233.268mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1793.358mil|Location2.X=1798.545mil|Location1.Y=4228.081mil|Location2.Y=4233.268mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "R21" (18.2mm,29.8mm) on Bottom Overlay And Track (14.6mm,30.6mm)(18.2mm,30.6mm) on Bottom Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1855.674mil|Location2.X=1860.861mil|Location1.Y=4227.884mil|Location2.Y=4233.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1855.674mil|Location2.X=1860.861mil|Location1.Y=4227.884mil|Location2.Y=4233.071mil|Absolute=True">Silk To Silk Clearance Constraint: (0.092mm &lt; 0.1mm) Between Text "R21" (18.2mm,29.8mm) on Bottom Overlay And Track (18.2mm,30.6mm)(18.2mm,32.4mm) on Bottom Overlay Silk Text to Silk Clearance [0.092mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2121.524mil|Location2.X=2126.711mil|Location1.Y=4483.43mil|Location2.Y=4488.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2121.524mil|Location2.X=2126.711mil|Location1.Y=4483.43mil|Location2.Y=4488.617mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "R15" (26.4mm,37mm) on Bottom Overlay And Track (22.6mm,36.8mm)(26.2mm,36.8mm) on Bottom Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2038.06mil|Location2.X=2043.247mil|Location1.Y=4483.43mil|Location2.Y=4488.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2038.06mil|Location2.X=2043.247mil|Location1.Y=4483.43mil|Location2.Y=4488.617mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "R16" (24.3mm,37mm) on Bottom Overlay And Track (22.6mm,36.8mm)(26.2mm,36.8mm) on Bottom Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2288.13mil|Location2.X=2293.317mil|Location1.Y=4314.695mil|Location2.Y=4319.882mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2288.13mil|Location2.X=2293.317mil|Location1.Y=4314.695mil|Location2.Y=4319.882mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "R17" (30.2mm,32mm) on Bottom Overlay And Track (26.6mm,32.8mm)(30.2mm,32.8mm) on Bottom Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2328.115mil|Location2.X=2333.302mil|Location1.Y=4314.498mil|Location2.Y=4319.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2328.115mil|Location2.X=2333.302mil|Location1.Y=4314.498mil|Location2.Y=4319.685mil|Absolute=True">Silk To Silk Clearance Constraint: (0.092mm &lt; 0.1mm) Between Text "R17" (30.2mm,32mm) on Bottom Overlay And Track (30.2mm,32.8mm)(30.2mm,34.6mm) on Bottom Overlay Silk Text to Silk Clearance [0.092mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2405.084mil|Location2.X=2410.271mil|Location1.Y=3722.595mil|Location2.Y=3727.782mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2405.084mil|Location2.X=2410.271mil|Location1.Y=3722.595mil|Location2.Y=3727.782mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "R5" (32.1mm,18.5mm) on Bottom Overlay And Track (32.3mm,17.1mm)(32.3mm,18.9mm) on Bottom Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2405.084mil|Location2.X=2410.271mil|Location1.Y=3942.281mil|Location2.Y=3947.468mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2405.084mil|Location2.X=2410.271mil|Location1.Y=3942.281mil|Location2.Y=3947.468mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "R6" (32.1mm,24.1mm) on Bottom Overlay And Track (32.3mm,22.7mm)(32.3mm,24.5mm) on Bottom Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2550.064mil|Location2.X=2555.251mil|Location1.Y=3805.84mil|Location2.Y=3811.027mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2550.064mil|Location2.X=2555.251mil|Location1.Y=3805.84mil|Location2.Y=3811.027mil|Absolute=True">Silk To Silk Clearance Constraint: (0.075mm &lt; 0.1mm) Between Text "D2" (35.875mm,19.5mm) on Bottom Overlay And Track (35.7mm,19.425mm)(35.7mm,20.575mm) on Bottom Overlay Silk Text to Silk Clearance [0.075mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2546.26mil|Location2.X=2551.447mil|Location1.Y=3170.977mil|Location2.Y=3176.164mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2546.26mil|Location2.X=2551.447mil|Location1.Y=3170.977mil|Location2.Y=3176.164mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "R2" (36.4mm,4.5mm) on Bottom Overlay And Track (35.6mm,3mm)(35.6mm,6.6mm) on Bottom Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2337.598mil|Location2.X=2342.785mil|Location1.Y=3151.904mil|Location2.Y=3157.091mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2337.598mil|Location2.X=2342.785mil|Location1.Y=3151.904mil|Location2.Y=3157.091mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "R1" (31.1mm,4mm) on Bottom Overlay And Track (30.3mm,3mm)(30.3mm,6.6mm) on Bottom Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2337.598mil|Location2.X=2342.785mil|Location1.Y=3147.013mil|Location2.Y=3152.2mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2337.598mil|Location2.X=2342.785mil|Location1.Y=3147.013mil|Location2.Y=3152.2mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "R1" (31.1mm,4mm) on Bottom Overlay And Track (28.5mm,3mm)(30.3mm,3mm) on Bottom Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2007.446mil|Location2.X=2012.633mil|Location1.Y=3203.415mil|Location2.Y=3208.602mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2007.446mil|Location2.X=2012.633mil|Location1.Y=3203.415mil|Location2.Y=3208.602mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "R26" (22mm,5.9mm) on Bottom Overlay And Track (22.2mm,4.4mm)(22.2mm,8mm) on Bottom Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2007.427mil|Location2.X=2012.614mil|Location1.Y=3202.371mil|Location2.Y=3207.558mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2007.427mil|Location2.X=2012.614mil|Location1.Y=3202.371mil|Location2.Y=3207.558mil|Absolute=True">Silk To Silk Clearance Constraint: (0.091mm &lt; 0.1mm) Between Text "R26" (22mm,5.9mm) on Bottom Overlay And Track (22.2mm,4.4mm)(24mm,4.4mm) on Bottom Overlay Silk Text to Silk Clearance [0.091mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2176.181mil|Location2.X=2181.368mil|Location1.Y=3313.015mil|Location2.Y=3318.202mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2176.181mil|Location2.X=2181.368mil|Location1.Y=3313.015mil|Location2.Y=3318.202mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "R3" (27mm,8.1mm) on Bottom Overlay And Track (26.2mm,4.4mm)(26.2mm,8mm) on Bottom Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2176.378mil|Location2.X=2181.565mil|Location1.Y=3206.068mil|Location2.Y=3211.255mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2176.378mil|Location2.X=2181.565mil|Location1.Y=3206.068mil|Location2.Y=3211.255mil|Absolute=True">Silk To Silk Clearance Constraint: (0.092mm &lt; 0.1mm) Between Text "R9" (27mm,4.5mm) on Bottom Overlay And Track (26.2mm,4.4mm)(26.2mm,8mm) on Bottom Overlay Silk Text to Silk Clearance [0.092mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2176.378mil|Location2.X=2181.565mil|Location1.Y=3343.863mil|Location2.Y=3349.05mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2176.378mil|Location2.X=2181.565mil|Location1.Y=3343.863mil|Location2.Y=3349.05mil|Absolute=True">Silk To Silk Clearance Constraint: (0.092mm &lt; 0.1mm) Between Text "R3" (27mm,8.1mm) on Bottom Overlay And Track (24.4mm,8mm)(26.2mm,8mm) on Bottom Overlay Silk Text to Silk Clearance [0.092mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2176.378mil|Location2.X=2181.565mil|Location1.Y=3202.131mil|Location2.Y=3207.318mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2176.378mil|Location2.X=2181.565mil|Location1.Y=3202.131mil|Location2.Y=3207.318mil|Absolute=True">Silk To Silk Clearance Constraint: (0.092mm &lt; 0.1mm) Between Text "R9" (27mm,4.5mm) on Bottom Overlay And Track (24.4mm,4.4mm)(26.2mm,4.4mm) on Bottom Overlay Silk Text to Silk Clearance [0.092mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2207.107mil|Location2.X=2210.732mil|Location1.Y=3064.724mil|Location2.Y=3068.349mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2207.107mil|Location2.X=2210.732mil|Location1.Y=3064.724mil|Location2.Y=3068.349mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.1mm) Between Text "LED_B" (27mm,3.1mm) on Bottom Overlay And Track (27.2mm,0.8mm)(27.2mm,2.6mm) on Bottom Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2206.748mil|Location2.X=2213.077mil|Location1.Y=3063.537mil|Location2.Y=3070.209mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2206.748mil|Location2.X=2213.077mil|Location1.Y=3063.537mil|Location2.Y=3070.209mil|Absolute=True">Silk To Silk Clearance Constraint: (0.03mm &lt; 0.1mm) Between Text "LED_B" (27mm,3.1mm) on Bottom Overlay And Track (27.2mm,0.8mm)(30.8mm,0.8mm) on Bottom Overlay Silk Text to Silk Clearance [0.03mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2601.574mil|Location2.X=2606.761mil|Location1.Y=3088.28mil|Location2.Y=3093.467mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2601.574mil|Location2.X=2606.761mil|Location1.Y=3088.28mil|Location2.Y=3093.467mil|Absolute=True">Silk To Silk Clearance Constraint: (0.092mm &lt; 0.1mm) Between Text "LED_R" (37.8mm,4.1mm) on Bottom Overlay And Track (37mm,0.8mm)(37mm,2.6mm) on Bottom Overlay Silk Text to Silk Clearance [0.092mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2601.594mil|Location2.X=2606.781mil|Location1.Y=3131.543mil|Location2.Y=3136.73mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2601.594mil|Location2.X=2606.781mil|Location1.Y=3131.543mil|Location2.Y=3136.73mil|Absolute=True">Silk To Silk Clearance Constraint: (0.093mm &lt; 0.1mm) Between Text "LED_R" (37.8mm,4.1mm) on Bottom Overlay And Track (33.4mm,2.6mm)(37mm,2.6mm) on Bottom Overlay Silk Text to Silk Clearance [0.093mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1997.412mil|Location2.X=2002.6mil|Location1.Y=3192.257mil|Location2.Y=3197.444mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1997.412mil|Location2.X=2002.6mil|Location1.Y=3192.257mil|Location2.Y=3197.444mil|Absolute=True">Silk To Silk Clearance Constraint: (0.098mm &lt; 0.1mm) Between Text "R26" (22mm,5.9mm) on Bottom Overlay And Track (21.8mm,0.4mm)(21.8mm,4mm) on Bottom Overlay Silk Text to Silk Clearance [0.098mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1997.412mil|Location2.X=2002.6mil|Location1.Y=3192.257mil|Location2.Y=3197.444mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1997.412mil|Location2.X=2002.6mil|Location1.Y=3192.257mil|Location2.Y=3197.444mil|Absolute=True">Silk To Silk Clearance Constraint: (0.098mm &lt; 0.1mm) Between Text "R26" (22mm,5.9mm) on Bottom Overlay And Track (20mm,4mm)(21.8mm,4mm) on Bottom Overlay Silk Text to Silk Clearance [0.098mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1848.997mil|Location2.X=1854.184mil|Location1.Y=3192.092mil|Location2.Y=3197.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1848.997mil|Location2.X=1854.184mil|Location1.Y=3192.092mil|Location2.Y=3197.279mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "R28" (19.5mm,4.2mm) on Bottom Overlay And Track (17.8mm,4mm)(19.6mm,4mm) on Bottom Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1821.185mil|Location2.X=1827.918mil|Location1.Y=3191.422mil|Location2.Y=3198.089mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1821.185mil|Location2.X=1827.918mil|Location1.Y=3191.422mil|Location2.Y=3198.089mil|Absolute=True">Silk To Silk Clearance Constraint: (0.098mm &lt; 0.1mm) Between Text "R29" (17.299mm,4.17mm) on Bottom Overlay And Track (17.4mm,0.4mm)(17.4mm,4mm) on Bottom Overlay Silk Text to Silk Clearance [0.098mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1763.742mil|Location2.X=1768.929mil|Location1.Y=3191.501mil|Location2.Y=3196.688mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1763.742mil|Location2.X=1768.929mil|Location1.Y=3191.501mil|Location2.Y=3196.688mil|Absolute=True">Silk To Silk Clearance Constraint: (0.06mm &lt; 0.1mm) Between Text "R29" (17.299mm,4.17mm) on Bottom Overlay And Track (15.6mm,4mm)(17.4mm,4mm) on Bottom Overlay Silk Text to Silk Clearance [0.06mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1676.642mil|Location2.X=1681.829mil|Location1.Y=3192.092mil|Location2.Y=3197.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1676.642mil|Location2.X=1681.829mil|Location1.Y=3192.092mil|Location2.Y=3197.279mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "R30" (15.1mm,4.2mm) on Bottom Overlay And Track (13.4mm,4mm)(15.2mm,4mm) on Bottom Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1610.259mil|Location2.X=1615.446mil|Location1.Y=3192.092mil|Location2.Y=3197.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1610.259mil|Location2.X=1615.446mil|Location1.Y=3192.092mil|Location2.Y=3197.279mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "R31" (12.85mm,4.2mm) on Bottom Overlay And Track (11.2mm,4mm)(13mm,4mm) on Bottom Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2176.378mil|Location2.X=2181.565mil|Location1.Y=3458.386mil|Location2.Y=3463.573mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2176.378mil|Location2.X=2181.565mil|Location1.Y=3458.386mil|Location2.Y=3463.573mil|Absolute=True">Silk To Silk Clearance Constraint: (0.092mm &lt; 0.1mm) Between Text "R7" (27mm,12mm) on Bottom Overlay And Track (26.2mm,8.4mm)(26.2mm,12mm) on Bottom Overlay Silk Text to Silk Clearance [0.092mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2176.378mil|Location2.X=2181.565mil|Location1.Y=3501.343mil|Location2.Y=3506.53mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2176.378mil|Location2.X=2181.565mil|Location1.Y=3501.343mil|Location2.Y=3506.53mil|Absolute=True">Silk To Silk Clearance Constraint: (0.092mm &lt; 0.1mm) Between Text "R7" (27mm,12mm) on Bottom Overlay And Track (24.4mm,12mm)(26.2mm,12mm) on Bottom Overlay Silk Text to Silk Clearance [0.092mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2007.446mil|Location2.X=2012.633mil|Location1.Y=3465.815mil|Location2.Y=3471.002mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2007.446mil|Location2.X=2012.633mil|Location1.Y=3465.815mil|Location2.Y=3471.002mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "R8" (22mm,12mm) on Bottom Overlay And Track (22.2mm,8.4mm)(22.2mm,12mm) on Bottom Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2405.083mil|Location2.X=2410.27mil|Location1.Y=4204.201mil|Location2.Y=4209.388mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2405.083mil|Location2.X=2410.27mil|Location1.Y=4204.201mil|Location2.Y=4209.388mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "R10" (32.1mm,31.3mm) on Bottom Overlay And Track (32.3mm,27.7mm)(32.3mm,31.3mm) on Bottom Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2630.621mil|Location2.X=2635.808mil|Location1.Y=3999.178mil|Location2.Y=4004.365mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2630.621mil|Location2.X=2635.808mil|Location1.Y=3999.178mil|Location2.Y=4004.365mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "C2" (38.2mm,24.7mm) on Bottom Overlay And Track (36.7mm,24.5mm)(38.5mm,24.5mm) on Bottom Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2947.834mil|Location2.X=2953.021mil|Location1.Y=4168.331mil|Location2.Y=4173.518mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2947.834mil|Location2.X=2953.021mil|Location1.Y=4168.331mil|Location2.Y=4173.518mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "R12" (46.6mm,30.4mm) on Bottom Overlay And Track (45.8mm,26.7mm)(45.8mm,30.3mm) on Bottom Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2948.031mil|Location2.X=2953.218mil|Location1.Y=4221.816mil|Location2.Y=4227.003mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2948.031mil|Location2.X=2953.218mil|Location1.Y=4221.816mil|Location2.Y=4227.003mil|Absolute=True">Silk To Silk Clearance Constraint: (0.092mm &lt; 0.1mm) Between Text "R12" (46.6mm,30.4mm) on Bottom Overlay And Track (44mm,30.3mm)(45.8mm,30.3mm) on Bottom Overlay Silk Text to Silk Clearance [0.092mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2947.834mil|Location2.X=2953.021mil|Location1.Y=4326.117mil|Location2.Y=4331.304mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2947.834mil|Location2.X=2953.021mil|Location1.Y=4326.117mil|Location2.Y=4331.304mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "R13" (46.6mm,34.4mm) on Bottom Overlay And Track (45.8mm,30.7mm)(45.8mm,34.3mm) on Bottom Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2948.031mil|Location2.X=2953.218mil|Location1.Y=4379.296mil|Location2.Y=4384.483mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2948.031mil|Location2.X=2953.218mil|Location1.Y=4379.296mil|Location2.Y=4384.483mil|Absolute=True">Silk To Silk Clearance Constraint: (0.092mm &lt; 0.1mm) Between Text "R13" (46.6mm,34.4mm) on Bottom Overlay And Track (44mm,34.3mm)(45.8mm,34.3mm) on Bottom Overlay Silk Text to Silk Clearance [0.092mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2333.661mil|Location2.X=2338.848mil|Location1.Y=4539.983mil|Location2.Y=4545.17mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2333.661mil|Location2.X=2338.848mil|Location1.Y=4539.983mil|Location2.Y=4545.17mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "C4" (31mm,38.7mm) on Bottom Overlay And Track (30.2mm,37.2mm)(30.2mm,39mm) on Bottom Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1723.012mil|Location2.X=1728.199mil|Location1.Y=4483.43mil|Location2.Y=4488.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1723.012mil|Location2.X=1728.199mil|Location1.Y=4483.43mil|Location2.Y=4488.617mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "R18" (16.3mm,37mm) on Bottom Overlay And Track (14.6mm,36.8mm)(18.2mm,36.8mm) on Bottom Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2106.134mil|Location2.X=2111.321mil|Location1.Y=4314.695mil|Location2.Y=4319.882mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2106.134mil|Location2.X=2111.321mil|Location1.Y=4314.695mil|Location2.Y=4319.882mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "R24" (26.2mm,32mm) on Bottom Overlay And Track (22.6mm,32.8mm)(26.2mm,32.8mm) on Bottom Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2170.635mil|Location2.X=2175.822mil|Location1.Y=4314.498mil|Location2.Y=4319.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2170.635mil|Location2.X=2175.822mil|Location1.Y=4314.498mil|Location2.Y=4319.685mil|Absolute=True">Silk To Silk Clearance Constraint: (0.092mm &lt; 0.1mm) Between Text "R24" (26.2mm,32mm) on Bottom Overlay And Track (26.2mm,32.8mm)(26.2mm,34.6mm) on Bottom Overlay Silk Text to Silk Clearance [0.092mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1873.667mil|Location2.X=1878.854mil|Location1.Y=4314.695mil|Location2.Y=4319.882mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1873.667mil|Location2.X=1878.854mil|Location1.Y=4314.695mil|Location2.Y=4319.882mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "R19" (20.1mm,32mm) on Bottom Overlay And Track (18.6mm,32.8mm)(22.2mm,32.8mm) on Bottom Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1978.063mil|Location2.X=1983.251mil|Location1.Y=4314.695mil|Location2.Y=4319.882mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1978.063mil|Location2.X=1983.251mil|Location1.Y=4314.695mil|Location2.Y=4319.882mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "R25" (22.2mm,32mm) on Bottom Overlay And Track (18.6mm,32.8mm)(22.2mm,32.8mm) on Bottom Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1872.351mil|Location2.X=1877.538mil|Location1.Y=4314.668mil|Location2.Y=4319.855mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1872.351mil|Location2.X=1877.538mil|Location1.Y=4314.668mil|Location2.Y=4319.855mil|Absolute=True">Silk To Silk Clearance Constraint: (0.087mm &lt; 0.1mm) Between Text "R19" (20.1mm,32mm) on Bottom Overlay And Track (18.6mm,32.8mm)(18.6mm,34.6mm) on Bottom Overlay Silk Text to Silk Clearance [0.087mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2013.155mil|Location2.X=2018.341mil|Location1.Y=4314.498mil|Location2.Y=4319.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2013.155mil|Location2.X=2018.341mil|Location1.Y=4314.498mil|Location2.Y=4319.685mil|Absolute=True">Silk To Silk Clearance Constraint: (0.092mm &lt; 0.1mm) Between Text "R25" (22.2mm,32mm) on Bottom Overlay And Track (22.2mm,32.8mm)(22.2mm,34.6mm) on Bottom Overlay Silk Text to Silk Clearance [0.092mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1220.044mil|Location2.X=1225.231mil|Location1.Y=4164.831mil|Location2.Y=4170.018mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1220.044mil|Location2.X=1225.231mil|Location1.Y=4164.831mil|Location2.Y=4170.018mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "R20" (2mm,30.3mm) on Bottom Overlay And Track (2.2mm,26.7mm)(2.2mm,30.3mm) on Bottom Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1219.847mil|Location2.X=1225.034mil|Location1.Y=4221.816mil|Location2.Y=4227.003mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1219.847mil|Location2.X=1225.034mil|Location1.Y=4221.816mil|Location2.Y=4227.003mil|Absolute=True">Silk To Silk Clearance Constraint: (0.1mm &lt; 0.1mm) Between Text "R20" (2mm,30.3mm) on Bottom Overlay And Track (2.2mm,30.3mm)(4mm,30.3mm) on Bottom Overlay Silk Text to Silk Clearance [0.1mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1220.044mil|Location2.X=1225.231mil|Location1.Y=4343.55mil|Location2.Y=4348.737mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1220.044mil|Location2.X=1225.231mil|Location1.Y=4343.55mil|Location2.Y=4348.737mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "C8" (2mm,34.3mm) on Bottom Overlay And Track (2.2mm,30.7mm)(2.2mm,34.3mm) on Bottom Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1688.548mil|Location2.X=1693.735mil|Location1.Y=3296.15mil|Location2.Y=3301.337mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1688.548mil|Location2.X=1693.735mil|Location1.Y=3296.15mil|Location2.Y=3301.337mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "C14" (13.9mm,7.1mm) on Bottom Overlay And Track (14.1mm,5.4mm)(14.1mm,7.2mm) on Bottom Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2364.329mil|Location2.X=2367.954mil|Location1.Y=3153.122mil|Location2.Y=3156.746mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2364.329mil|Location2.X=2367.954mil|Location1.Y=3153.122mil|Location2.Y=3156.746mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.1mm) Between Text "R1" (31.1mm,4mm) on Bottom Overlay And Track (31.2mm,0.8mm)(31.2mm,4.4mm) on Bottom Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1527.036mil|Location2.X=1532.223mil|Location1.Y=4160.596mil|Location2.Y=4165.783mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1527.036mil|Location2.X=1532.223mil|Location1.Y=4160.596mil|Location2.Y=4165.783mil|Absolute=True">Silk To Silk Clearance Constraint: (0.09mm &lt; 0.1mm) Between Text "R35" (11.3mm,28.8mm) on Bottom Overlay And Track (9.6mm,28.6mm)(11.4mm,28.6mm) on Bottom Overlay Silk Text to Silk Clearance [0.09mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2176.378mil|Location2.X=2181.565mil|Location1.Y=3048.692mil|Location2.Y=3053.879mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2176.378mil|Location2.X=2181.565mil|Location1.Y=3048.692mil|Location2.Y=3053.879mil|Absolute=True">Silk To Silk Clearance Constraint: (0.092mm &lt; 0.1mm) Between Text "LED_B" (27mm,3.1mm) on Bottom Overlay And Track (26.2mm,0.4mm)(26.2mm,4mm) on Bottom Overlay Silk Text to Silk Clearance [0.092mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2176.181mil|Location2.X=2181.368mil|Location1.Y=3171.589mil|Location2.Y=3176.776mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2176.181mil|Location2.X=2181.368mil|Location1.Y=3171.589mil|Location2.Y=3176.776mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "R9" (27mm,4.5mm) on Bottom Overlay And Track (26.2mm,0.4mm)(26.2mm,4mm) on Bottom Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2176.452mil|Location2.X=2181.639mil|Location1.Y=3045.622mil|Location2.Y=3050.809mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2176.452mil|Location2.X=2181.639mil|Location1.Y=3045.622mil|Location2.Y=3050.809mil|Absolute=True">Silk To Silk Clearance Constraint: (0.1mm &lt; 0.1mm) Between Text "LED_B" (27mm,3.1mm) on Bottom Overlay And Track (24.4mm,0.4mm)(26.2mm,0.4mm) on Bottom Overlay Silk Text to Silk Clearance [0.1mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1617.877mil|Location2.X=1623.064mil|Location1.Y=3920.994mil|Location2.Y=3926.181mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1617.877mil|Location2.X=1623.064mil|Location1.Y=3920.994mil|Location2.Y=3926.181mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "C15" (13.2mm,22mm) on Bottom Overlay And Track (9.6mm,22.8mm)(13.2mm,22.8mm) on Bottom Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1979.331mil|Location2.X=1984.517mil|Location1.Y=3203.546mil|Location2.Y=3208.733mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1979.331mil|Location2.X=1984.517mil|Location1.Y=3203.546mil|Location2.Y=3208.733mil|Absolute=True">Silk To Silk Clearance Constraint: (0.082mm &lt; 0.1mm) Between Text "R26" (22mm,5.9mm) on Bottom Overlay And Text "R27" (21.3mm,4.2mm) on Bottom Overlay Silk Text to Silk Clearance [0.082mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDJLGVRSKKYF2SDVPMFAHQ341JTQ0TWCAIVXDAVNBISXUJDBNDD5O"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Board Clearance Constraint (Gap=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2598.556mil|Location2.X=2613.689mil|Location1.Y=4900.449mil|Location2.Y=4914.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2598.556mil|Location2.X=2613.689mil|Location1.Y=4900.449mil|Location2.Y=4914.767mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.229mm &lt; 0.3mm) Between Track (37mm,43.5mm)(37mm,47.5mm) on Top Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2598.556mil|Location2.X=2613.689mil|Location1.Y=4900.449mil|Location2.Y=4914.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2598.556mil|Location2.X=2613.689mil|Location1.Y=4900.449mil|Location2.Y=4914.767mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.229mm &lt; 0.3mm) Between Track (13mm,47.5mm)(37mm,47.5mm) on Top Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3027.222mil|Location2.X=3036.095mil|Location1.Y=3710.13mil|Location2.Y=3719.004mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3027.222mil|Location2.X=3036.095mil|Location1.Y=3710.13mil|Location2.Y=3719.004mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.3mm) Between Track (47.2mm,17.35mm)(47.9mm,17.35mm) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3027.222mil|Location2.X=3036.095mil|Location1.Y=3676.665mil|Location2.Y=3685.539mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3027.222mil|Location2.X=3036.095mil|Location1.Y=3676.665mil|Location2.Y=3685.539mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.3mm) Between Track (47.9mm,15.65mm)(47.9mm,17.35mm) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3027.222mil|Location2.X=3036.095mil|Location1.Y=3643.201mil|Location2.Y=3652.075mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3027.222mil|Location2.X=3036.095mil|Location1.Y=3643.201mil|Location2.Y=3652.075mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.3mm) Between Track (47.2mm,15.65mm)(47.9mm,15.65mm) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2630.776mil|Location2.X=2643.838mil|Location1.Y=3070.228mil|Location2.Y=3083.818mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2630.776mil|Location2.X=2643.838mil|Location1.Y=3070.228mil|Location2.Y=3083.818mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.229mm &lt; 0.3mm) Between Text "LED_R" (37.8mm,4.1mm) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2174.246mil|Location2.X=2187.307mil|Location1.Y=3030.271mil|Location2.Y=3043.332mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2174.246mil|Location2.X=2187.307mil|Location1.Y=3030.271mil|Location2.Y=3043.332mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.27mm &lt; 0.3mm) Between Text "LED_B" (27mm,3.1mm) on Bottom Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2374.375mil|Location2.X=2387.436mil|Location1.Y=3029.887mil|Location2.Y=3042.948mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2374.375mil|Location2.X=2387.436mil|Location1.Y=3029.887mil|Location2.Y=3042.948mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.25mm &lt; 0.3mm) Between Region (0 hole(s)) Bottom Layer And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2106.659mil|Location2.X=2119.72mil|Location1.Y=3029.887mil|Location2.Y=3042.948mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2106.659mil|Location2.X=2119.72mil|Location1.Y=3029.887mil|Location2.Y=3042.948mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.25mm &lt; 0.3mm) Between Region (0 hole(s)) Bottom Layer And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2322.21mil|Location2.X=2335.271mil|Location1.Y=3029.887mil|Location2.Y=3042.948mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Amrello\Desktop\OpenCansat\PCB\Cansat_MainBoard\PCB1_rev_2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2322.21mil|Location2.X=2335.271mil|Location1.Y=3029.887mil|Location2.Y=3042.948mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.25mm &lt; 0.3mm) Between Region (0 hole(s)) Bottom Layer And Board Edge </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>

@@ -1,0 +1,7 @@
+Added Pin To Net: NetName=SPI1_SCK Pin=X2-5
+Added Pin To Net: NetName=SPI1_MISO Pin=X2-6
+Added Pin To Net: NetName=SPI1_MOSI Pin=X2-7
+Added Pin To Net: NetName=CS_1 Pin=X2-8
+Added Pin To Net: NetName=CS_2 Pin=X2-9
+Added Pin To Net: NetName=CS_3 Pin=X2-10
+Added Room: Name=Scheme_1

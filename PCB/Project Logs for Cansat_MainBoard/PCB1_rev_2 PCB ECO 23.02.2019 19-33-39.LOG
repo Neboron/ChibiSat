@@ -1,0 +1,3 @@
+Change Component Footprint: Designator=Z2 Old Footprint=OSC: 5070 New Footprint=OSC: 3215
+Added Member To Class: ClassName=Scheme_1 Member=Component D5 STM32F103RCT6
+Added Room: Name=Scheme_1

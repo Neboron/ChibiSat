@@ -1,0 +1,6 @@
+Removed Pin From Net: NetName=SPI1_SCK Pin=X2-5
+Removed Pin From Net: NetName=SPI1_MISO Pin=X2-6
+Removed Pin From Net: NetName=SPI1_MOSI Pin=X2-7
+Added Pin To Net: NetName=I2C1_SDA Pin=X2-3
+Added Pin To Net: NetName=I2C1_SCL Pin=X2-4
+Added Room: Name=Scheme_1

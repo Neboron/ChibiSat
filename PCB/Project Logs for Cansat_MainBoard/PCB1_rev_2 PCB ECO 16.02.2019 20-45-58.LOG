@@ -1,0 +1,8 @@
+Removed Pin From Net: NetName=GND Pin=D1-9
+Removed Pin From Net: NetName=NetC1_2 Pin=LED_B-1
+Removed Pin From Net: NetName=NetC1_2 Pin=LED_R-1
+Change Component Footprint: Designator=FU1 Old Footprint=CH1812C New Footprint=CH0805F
+Added Pin To Net: NetName=NetFU1_1 Pin=LED_B-1
+Added Pin To Net: NetName=NetFU1_1 Pin=LED_R-1
+Added Member To Class: ClassName=Scheme_1 Member=Component R30 10k
+Added Room: Name=Scheme_1

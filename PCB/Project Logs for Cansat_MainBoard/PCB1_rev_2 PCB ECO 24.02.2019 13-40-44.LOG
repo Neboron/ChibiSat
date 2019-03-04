@@ -1,0 +1,5 @@
+Added Pin To Net: NetName=PC0 Pin=D5-8
+Added Net: Name=PC0
+Added Pin To Net: NetName=PC1 Pin=D5-9
+Added Net: Name=PC1
+Added Room: Name=Scheme_1

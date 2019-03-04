@@ -1,0 +1,24 @@
+Added Component: Designator=LED_B?(CH0805LB)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "ComponentKind"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Model"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=R32(CH0805R)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "ComponentKind"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Model"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100k"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=3.3V Pin=LED_B?-1
+Added Pin To Net: NetName=NetD5_14 Pin=D5-14
+Added Pin To Net: NetName=NetD5_14 Pin=R32-2
+Added Net: Name=NetD5_14
+Added Pin To Net: NetName=NetLED_B?_2 Pin=LED_B?-2
+Added Pin To Net: NetName=NetLED_B?_2 Pin=R32-1
+Added Net: Name=NetLED_B?_2
+Added Member To Class: ClassName=Scheme_1 Member=Component LED_B? BLUE
+Added Member To Class: ClassName=Scheme_1 Member=Component R32 100k
+Added Room: Name=Scheme_1

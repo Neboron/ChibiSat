@@ -1,0 +1,17 @@
+Removed Pin From Net: NetName=GND Pin=D1-9
+Change Component DesignItemId : Designator=VT2 Old DesignItemId= New DesignItemId=NPN
+Change Component Footprint: Designator=VT2 Old Footprint=SOT23_123 New Footprint=SOT23_321
+Change Component Comment : Designator=VT2 Old Comment=Comment New Comment=BC874
+Change Component Description : Designator=VT2 Old Description= New Description=Bipolar
+Change Component Library : Designator=VT2 Old Library= New Library=Transistor.IntLib
+Change component parameters: Designator = "VT2"; Footprint = "SOT23_321"; UniqueID = "\MKFENJHD"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "ComponentKind"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Model"; Value = "BC874"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetR11_1 Pin=VT2-1
+Added Pin To Net: NetName=NetR10_1 Pin=VT2-2
+Added Pin To Net: NetName=GND Pin=VT2-3
+Added Member To Class: ClassName=Scheme_1 Member=Component VT2 BC874
+Added Room: Name=Scheme_1

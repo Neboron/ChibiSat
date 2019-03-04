@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=3.3V Pin=LED_B?-1
+Change Component Footprint: Designator=FU1 Old Footprint=CH1812C New Footprint=CH1206F
+Added Pin To Net: NetName=GND Pin=LED_B?-2
+Added Pin To Net: NetName=NetLED_B?_1 Pin=LED_B?-1
+Added Pin To Net: NetName=NetLED_B?_1 Pin=R32-1
+Added Net: Name=NetLED_B?_1
+Added Room: Name=Scheme_1

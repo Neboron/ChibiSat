@@ -1,0 +1,8 @@
+Removed Pin From Net: NetName=3.3V Pin=X6-1
+Removed Pin From Net: NetName=SWD Pin=X6-2
+Removed Pin From Net: NetName=SWC Pin=X6-3
+Removed Pin From Net: NetName=GND Pin=X6-4
+Removed Member From Class: ClassName=Scheme_1 Member=X6
+Change Component Designator: OldDesignator=LED_B NewDesignator=LED_B?
+Added Member To Class: ClassName=Scheme_1 Member=Component LED_B? BLUE
+Added Room: Name=Scheme_1

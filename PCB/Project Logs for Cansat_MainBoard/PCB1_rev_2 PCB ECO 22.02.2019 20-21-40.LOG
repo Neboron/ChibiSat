@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=GND Pin=D4-11
+Added Pin To Net: NetName=NetD5_15 Pin=D5-15
+Added Pin To Net: NetName=NetD5_15 Pin=R24-2
+Added Pin To Net: NetName=NetD5_15 Pin=R25-1
+Added Net: Name=NetD5_15
+Added Member To Class: ClassName=Scheme_1 Member=Component C4 1.5nF
+Added Room: Name=Scheme_1

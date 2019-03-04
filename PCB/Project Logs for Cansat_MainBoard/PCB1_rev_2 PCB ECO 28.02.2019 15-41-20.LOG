@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=I2C1_SDA Pin=X2-3
+Removed Pin From Net: NetName=I2C1_SCL Pin=X2-4
+Added Pin To Net: NetName=I2C1_SCL Pin=X2-3
+Added Pin To Net: NetName=I2C1_SDA Pin=X2-4
+Added Room: Name=Scheme_1

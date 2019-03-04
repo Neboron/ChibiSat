@@ -1,0 +1,58 @@
+Removed Pin From Net: NetName=CAN_RX Pin=X5-2
+Removed Pin From Net: NetName=CAN_TX Pin=X5-3
+Change Component Designator: OldDesignator=LED_B NewDesignator=LED_B?
+Added Component: Designator=C15(CH0805C)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "ComponentKind"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Model"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0.1µ"; VariantName = "[No Variations]"
+Added Component: Designator=D7(SOT23-8)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "3DR_PARTNO"; Value = "ECM0831"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PARTNO"; Value = "MAX3051EKA+T"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "MAX3051EKA+TCT-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "CAN"; VariantName = "[No Variations]"
+Added Component: Designator=R34(CH0805R)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "ComponentKind"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Model"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "51k"; VariantName = "[No Variations]"
+Added Component: Designator=R35(CH0805R)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "ComponentKind"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Model"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "51k"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=C15-1
+Added Pin To Net: NetName=3.3V Pin=C15-2
+Added Pin To Net: NetName=CAN_TX Pin=D7-1
+Added Pin To Net: NetName=GND Pin=D7-2
+Added Pin To Net: NetName=3.3V Pin=D7-3
+Added Pin To Net: NetName=CAN_RX Pin=D7-4
+Added Pin To Net: NetName=GND Pin=R34-2
+Added Pin To Net: NetName=CAN_H Pin=D7-7
+Added Pin To Net: NetName=CAN_H Pin=R35-2
+Added Pin To Net: NetName=CAN_H Pin=X5-3
+Added Net: Name=CAN_H
+Added Pin To Net: NetName=CAN_L Pin=D7-6
+Added Pin To Net: NetName=CAN_L Pin=R35-1
+Added Pin To Net: NetName=CAN_L Pin=X5-2
+Added Net: Name=CAN_L
+Added Pin To Net: NetName=CAN_SHDN Pin=D5-2
+Added Pin To Net: NetName=CAN_SHDN Pin=D7-5
+Added Net: Name=CAN_SHDN
+Added Pin To Net: NetName=NetD7_8 Pin=D7-8
+Added Pin To Net: NetName=NetD7_8 Pin=R34-1
+Added Net: Name=NetD7_8
+Added Member To Class: ClassName=Scheme_1 Member=Component C15 0.1µ
+Added Member To Class: ClassName=Scheme_1 Member=Component D7 3.3-V CAN TRANSCEIVER
+Added Member To Class: ClassName=Scheme_1 Member=Component LED_B? BLUE
+Added Member To Class: ClassName=Scheme_1 Member=Component R34 10k
+Added Member To Class: ClassName=Scheme_1 Member=Component R35 120
+Added Room: Name=Scheme_1
