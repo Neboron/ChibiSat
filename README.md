@@ -32,6 +32,6 @@ The project is just being developed and may have some errors and inaccuracies.
 
 
 
-### 04.03.2019
-Developed the main board
+ 04.03.2019
+Developed main board
 ![alt text](/PCB/Images/3d_1.jpg)
