@@ -12,7 +12,7 @@ The project is just being developed and may have some errors and inaccuracies.
 
 
 ### Main tasks:
-- [ ] Designed construction and models
+- [x] Designed construction and models
 - [x] Developed main board
 - [ ] Developed sensor board
 - [ ] Electronics tested 
@@ -26,12 +26,12 @@ The project is just being developed and may have some errors and inaccuracies.
 
 
 
-
-
-
-
-
-
  04.03.2019
 Developed main board
 ![alt text](/PCB/Images/3d_1.jpg)
+
+
+
+18.03.2019
+Designed construction
+![alt text](/PCB/Images/preview.jpg)
