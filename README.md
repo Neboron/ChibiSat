@@ -34,4 +34,4 @@ Developed main board
 
 18.03.2019
 Designed construction
-![alt text](/PCB/Images/preview.jpg)
+![alt text](/PCB/Images/preview.JPG)
