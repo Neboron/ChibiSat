@@ -337,7 +337,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xE</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc;../Middlewares/Third_Party/FatFs/src;../Middlewares/Third_Party/FatFs/src/drivers;..\Inc</IncludePath>
+              <IncludePath>../Inc;      ../Drivers/STM32F1xx_HAL_Driver/Inc;      ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;      ../Drivers/CMSIS/Device/ST/STM32F1xx/Include;      ../Drivers/CMSIS/Include;      ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;      ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc;      ../Middlewares/Third_Party/FatFs/src;      ../Middlewares/Third_Party/FatFs/src/drivers;      ..\Inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -397,6 +397,16 @@
               <FilePath>..\Src\SerialCommand.c</FilePath>
             </File>
             <File>
+              <FileName>bs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\bs.c</FilePath>
+            </File>
+            <File>
+              <FileName>mpu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\mpu.c</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Src/main.c</FilePath>
@@ -441,11 +451,6 @@
               <FileType>1</FileType>
               <FilePath>../Src/stm32f1xx_hal_msp.c</FilePath>
             </File>
-            <File>
-              <FileName>bs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\bs.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -480,6 +485,11 @@
               <FileName>stm32f1xx_hal_adc_ex.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f1xx_hal_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.c</FilePath>
             </File>
             <File>
               <FileName>stm32f1xx_hal_rtc.c</FileName>

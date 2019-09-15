@@ -283,12 +283,6 @@ static uint16_t cmdGetArgNum(const char *cmd, uint16_t *Len)
 
 uint8_t ParseCMD(char* Buf, uint16_t *Len)
 {
-    for(uint16_t cl = 0; cl <= *Len; cl++)
-    {
-        
-    }
-    
-    
     char *pch;
     char **argv;
 	int i, argc;
@@ -334,7 +328,7 @@ uint8_t ParseCMD(char* Buf, uint16_t *Len)
 // Called from CDC_Receive_FS in "usbd_cdc_if.h" (Inerrupt handler)
 void SerialParse(uint8_t* Buf, uint32_t *Len)
 {
-    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
+    //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
 
     for(uint32_t cl = 0; cl <= *Len; cl++)
     {
@@ -358,6 +352,8 @@ void SerialParse(uint8_t* Buf, uint32_t *Len)
                 serial_str_rx[serial_rx_buf_pos] = Buf[cl];
                 if(Buf[cl] == '\n')
                 {
+                    serial_str_rx[serial_rx_buf_pos]   = ' ';
+                    serial_str_rx[serial_rx_buf_pos+1] = '\n';
                     msg_pos = TRM_CMD_RECEIVED;
                 }
                 else if(serial_rx_buf_pos >= RX_BUFFER_LEN)

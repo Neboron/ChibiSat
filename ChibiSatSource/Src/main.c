@@ -28,6 +28,7 @@
 #include "usbd_cdc_if.h"
 #include "SerialCommand.h"
 #include "bs.h"
+#include "mpu.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,15 +50,22 @@
 ADC_HandleTypeDef hadc1;
 DMA_HandleTypeDef hdma_adc1;
 
+I2C_HandleTypeDef hi2c1;
+
 RTC_HandleTypeDef hrtc;
 
 SD_HandleTypeDef hsd;
 
 TIM_HandleTypeDef htim6;
-
-Console_t Console;
+TIM_HandleTypeDef htim7;
 
 /* USER CODE BEGIN PV */
+    Console_t Console;
+    MPU60XX mpu1;
+    MPU60XX_Result mpu1_result;
+    
+    volatile uint32_t debug_settings = 0;
+    
     volatile uint32_t millis_counter = 0;
 
     FATFS fileSystem;
@@ -82,6 +90,8 @@ static void MX_ADC1_Init(void);
 static void MX_SDIO_SD_Init(void);
 static void MX_RTC_Init(void);
 static void MX_TIM6_Init(void);
+static void MX_I2C1_Init(void);
+static void MX_TIM7_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -89,18 +99,52 @@ static void MX_TIM6_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+void PrintDebug()
+{
+    if(CHECKBIT(debug_settings, 31)) HAL_TIM_Base_Start_IT(&htim7);
+    else HAL_TIM_Base_Stop_IT(&htim7);
+
+    if(debug_settings & 0x01)
+    {
+        PrintString(" accx ");
+    }
+
+    if(debug_settings & 0x02)
+    {
+        PrintString(" accy ");
+    }
+
+    if(debug_settings & 0x04)
+    {
+        PrintString(" accz ");
+    }
+
+    PrintString("\n");
+}
+
+// acc
 int DoCmd1(int argc, char **argv)
 {
-    int i;
-    PrintInt(55);
-    SerialSendHandlar();
+    for(uint32_t i; i<65000; i++){__NOP;}
+    CLEARBIT(debug_settings, 31);
+    for(uint16_t c; c <= argc; c++)
+    {
+        if(!strcmp(argv[c], "-c")) debug_settings |= 0x80000000;
+        if(!strcmp(argv[c], "-x")) debug_settings |= 0x01;
+        if(!strcmp(argv[c], "-y")) debug_settings |= 0x02;
+        if(!strcmp(argv[c], "-z")) debug_settings |= 0x04;
+    }
+
+    PrintDebug();
+    if(!CHECKBIT(debug_settings, 31)) debug_settings = 0;
+    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
     return 0;
 }
 
+// stop
 int DoCmd2(int argc, char **argv)
 {
-    int i;
-    return 0;
+    debug_settings &= ~0x8000FFFF;
 }
 
 int DoCmd3(int argc, char **argv)
@@ -114,8 +158,8 @@ int DoCmd3(int argc, char **argv)
 static const struct ConsoleCmd_t 
     SysCmd[] =
     { 	
-        { .cmd = "ls", .doit = DoCmd1 },
-		{ .cmd = "ifconfig", .doit = DoCmd2 },
+        { .cmd = "acc",     .doit = DoCmd1 },
+		{ .cmd = "stop",    .doit = DoCmd2 },
 		{ .cmd = "ignitor", .doit = DoCmd3 }
     };
 
@@ -169,6 +213,8 @@ int main(void)
   MX_FATFS_Init();
   MX_RTC_Init();
   MX_TIM6_Init();
+  MX_I2C1_Init();
+  MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
   HAL_Delay(500);
   WakeUP();
@@ -176,7 +222,9 @@ int main(void)
   HAL_ADCEx_Calibration_Start(&hadc1);
   HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adc_1, 2);
   
-  ConsoleInit(&Console, SysCmd, ARRAY_SIZE(SysCmd));
+  ConsoleInit(&Console, SysCmd, ARRAY_SIZE(SysCmd)); 
+  mpu1_result = MPU60XX_Init(&hi2c1, &mpu1, MPU60XX_Device_0, MPU60XX_Accelerometer_2G, MPU60XX_Gyroscope_250s);
+  
 
   //HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_SET);
   
@@ -210,7 +258,7 @@ int main(void)
 //      PrintInt(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_5));
 //      SerialSendHandlar();
 
-      HAL_Delay(1000);
+      SerialSendHandlar();
 //      HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
 //      TIM2->CCR1=56000;
 //      HAL_Delay(100);
@@ -321,6 +369,48 @@ static void MX_ADC1_Init(void)
   /* USER CODE BEGIN ADC1_Init 2 */
 
   /* USER CODE END ADC1_Init 2 */
+
+}
+
+/**
+  * @brief I2C1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_I2C1_Init(void)
+{
+
+  /* USER CODE BEGIN I2C1_Init 0 */
+  __HAL_RCC_I2C1_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  GPIO_InitTypeDef GPIO_InitStruct;
+  GPIO_InitStruct.Pin   = GPIO_PIN_6 | GPIO_PIN_7;
+  GPIO_InitStruct.Mode  = GPIO_MODE_AF_OD;
+  GPIO_InitStruct.Pull  = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  /* USER CODE END I2C1_Init 0 */
+
+  /* USER CODE BEGIN I2C1_Init 1 */
+
+  /* USER CODE END I2C1_Init 1 */
+  hi2c1.Instance = I2C1;
+  hi2c1.Init.ClockSpeed = 100000;
+  hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
+  hi2c1.Init.OwnAddress1 = 0;
+  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c1.Init.OwnAddress2 = 0;
+  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN I2C1_Init 2 */
+  
+  /* USER CODE END I2C1_Init 2 */
 
 }
 
@@ -447,6 +537,44 @@ static void MX_TIM6_Init(void)
 
 }
 
+/**
+  * @brief TIM7 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM7_Init(void)
+{
+
+  /* USER CODE BEGIN TIM7_Init 0 */
+
+  /* USER CODE END TIM7_Init 0 */
+
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM7_Init 1 */
+
+  /* USER CODE END TIM7_Init 1 */
+  htim7.Instance = TIM7;
+  htim7.Init.Prescaler = 31999;
+  htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim7.Init.Period = 100;
+  htim7.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim7) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim7, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM7_Init 2 */
+
+  /* USER CODE END TIM7_Init 2 */
+
+}
+
 /** 
   * Enable DMA controller clock
   */
@@ -475,6 +603,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);

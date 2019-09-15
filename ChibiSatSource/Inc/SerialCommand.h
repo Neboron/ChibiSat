@@ -18,6 +18,10 @@ extern "C" {
 
 //DEFINES:
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
+#define CHECKBIT(var,pos) ((var) & (1UL<<(pos)))
+#define CLEARBIT(var,pos) ((var) &= ~(1UL << (pos)))
+
+
 
 //VARIABLES:
 typedef struct ConsoleCmd_t

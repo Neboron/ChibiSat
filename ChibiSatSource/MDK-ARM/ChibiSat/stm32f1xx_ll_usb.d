@@ -23,6 +23,7 @@ chibisat\stm32f1xx_ll_usb.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_a
 chibisat\stm32f1xx_ll_usb.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_adc_ex.h
 chibisat\stm32f1xx_ll_usb.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 chibisat\stm32f1xx_ll_usb.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
+chibisat\stm32f1xx_ll_usb.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h
 chibisat\stm32f1xx_ll_usb.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 chibisat\stm32f1xx_ll_usb.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rtc.h
 chibisat\stm32f1xx_ll_usb.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rtc_ex.h
