@@ -106,33 +106,42 @@ void PrintDebug()
 
     if(debug_settings & 0x01)
     {
-        PrintString(" accx ");
+        if(!CHECKBIT(debug_settings, 30)) PrintString(" accX = ");
+        PrintInt(mpu1.Accelerometer_X);
+        PrintString(" ");
     }
 
     if(debug_settings & 0x02)
     {
-        PrintString(" accy ");
+        if(!CHECKBIT(debug_settings, 30)) PrintString(" accY = ");
+        PrintInt(mpu1.Accelerometer_Y);
+        PrintString(" ");
     }
 
     if(debug_settings & 0x04)
     {
-        PrintString(" accz ");
+        if(!CHECKBIT(debug_settings, 30)) PrintString(" accZ = ");
+        PrintInt(mpu1.Accelerometer_Z);
+        PrintString(" ");
     }
 
     PrintString("\n");
+    SerialSendHandlar();
 }
 
 // acc
 int DoCmd1(int argc, char **argv)
 {
-    for(uint32_t i; i<65000; i++){__NOP;}
     CLEARBIT(debug_settings, 31);
     for(uint16_t c; c <= argc; c++)
     {
-        if(!strcmp(argv[c], "-c")) debug_settings |= 0x80000000;
-        if(!strcmp(argv[c], "-x")) debug_settings |= 0x01;
-        if(!strcmp(argv[c], "-y")) debug_settings |= 0x02;
-        if(!strcmp(argv[c], "-z")) debug_settings |= 0x04;
+        // continuous mode
+        if(!strcmp(argv[c], "-c"))  debug_settings |= 0x80000000;
+        //arduino plotter mode
+        if(!strcmp(argv[c], "-ap")) debug_settings |= 0x40000000;
+        if(!strcmp(argv[c], "-x"))  debug_settings |= 0x01;
+        if(!strcmp(argv[c], "-y"))  debug_settings |= 0x02;
+        if(!strcmp(argv[c], "-z"))  debug_settings |= 0x04;
     }
 
     PrintDebug();
@@ -147,9 +156,20 @@ int DoCmd2(int argc, char **argv)
     debug_settings &= ~0x8000FFFF;
 }
 
+// Set continuous mode frequency
 int DoCmd3(int argc, char **argv)
 {
-    int i;
+    if(argc != 2) return -1;
+    uint8_t cm_frq = atoi(argv[1]);
+    if(cm_frq > 100) cm_frq = 100;
+    if(cm_frq < 1) cm_frq = 1;
+
+    HAL_TIM_Base_Stop_IT(&htim7);
+    HAL_TIM_Base_Stop(&htim7);
+    uint16_t period = SystemCoreClock / (cm_frq * TIM7->PSC);
+    TIM7->ARR = period - 1;
+    HAL_TIM_Base_Start_IT(&htim7);
+    HAL_TIM_Base_Start(&htim7);
     return 0;
 }
 
@@ -158,9 +178,9 @@ int DoCmd3(int argc, char **argv)
 static const struct ConsoleCmd_t 
     SysCmd[] =
     { 	
-        { .cmd = "acc",     .doit = DoCmd1 },
-		{ .cmd = "stop",    .doit = DoCmd2 },
-		{ .cmd = "ignitor", .doit = DoCmd3 }
+        { .cmd = "acc",        .doit = DoCmd1 },
+		{ .cmd = "stop",       .doit = DoCmd2 },
+		{ .cmd = "set_cm_frq", .doit = DoCmd3 }
     };
 
 
@@ -176,6 +196,29 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 //        HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adc_1, 2);
 //    }
 }
+
+
+
+void TIM6_SetFrq(uint16_t frq)
+{
+    HAL_TIM_Base_Stop_IT(&htim6);
+    HAL_TIM_Base_Stop(&htim6);
+    uint16_t period = SystemCoreClock / (frq * TIM6->PSC);
+    TIM6->ARR = period - 1;
+    HAL_TIM_Base_Start_IT(&htim6);
+    HAL_TIM_Base_Start(&htim6);
+}
+
+
+
+int ReadSensors()
+{
+    if(mpu1_result == MPU60XX_Result_Ok) mpu1_result = MPU60XX_ReadAll(&hi2c1, &mpu1);
+    else return -1;
+}
+
+
+
 /* USER CODE END 0 */
 
 /**
@@ -216,17 +259,23 @@ int main(void)
   MX_I2C1_Init();
   MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
-  HAL_Delay(500);
-  WakeUP();
-  SysTick_Config(SystemCoreClock / 1000);
-  HAL_ADCEx_Calibration_Start(&hadc1);
-  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adc_1, 2);
-  
-  ConsoleInit(&Console, SysCmd, ARRAY_SIZE(SysCmd)); 
-  mpu1_result = MPU60XX_Init(&hi2c1, &mpu1, MPU60XX_Device_0, MPU60XX_Accelerometer_2G, MPU60XX_Gyroscope_250s);
-  
 
-  //HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_SET);
+    HAL_Delay(5);
+
+    WakeUP();
+    SysTick_Config(SystemCoreClock / 1000);
+    HAL_ADCEx_Calibration_Start(&hadc1);
+    HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adc_1, 2);
+  
+    //TIM6 is used to set sensors polling rate
+    HAL_TIM_Base_Start_IT(&htim6);
+    HAL_TIM_Base_Start(&htim6);
+    TIM6_SetFrq(30);
+  
+    ConsoleInit(&Console, SysCmd, ARRAY_SIZE(SysCmd));
+    mpu1_result = MPU60XX_Init(&hi2c1, &mpu1, MPU60XX_Device_0, MPU60XX_Accelerometer_16G, MPU60XX_Gyroscope_250s);
+    mpu1_result = MPU60XX_ReadAll(&hi2c1, &mpu1);
+  
   
 
     if(f_mount(&fileSystem, SDPath, 1) == FR_OK)
@@ -258,12 +307,7 @@ int main(void)
 //      PrintInt(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_5));
 //      SerialSendHandlar();
 
-      SerialSendHandlar();
-//      HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-//      TIM2->CCR1=56000;
-//      HAL_Delay(100);
-//      HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-//      TIM2->CCR1=0;
+      //SerialSendHandlar();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -650,10 +694,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
     if(GPIO_Pin== GPIO_PIN_5)
     {
-        HAL_TIM_Base_Start(&htim6);
-        HAL_TIM_Base_Start_IT(&htim6);   // This IT is triggered every 100ms to check button
-        //HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-        //TIM2->CCR1=56000;
+
     }
     else
     {

@@ -41,7 +41,8 @@ typedef enum
 
 typedef enum
 {
-	MPU60XX_Result_Ok = 0x00,                 // Everything OK
+    MPU60XX_Result_Zero = 0x00,
+	MPU60XX_Result_Ok,                        // Everything OK
 	MPU60XX_Result_Error,                     // Unknown error
 	MPU60XX_Result_DeviceNotConnected,        // There is no device with valid slave addres
 	MPU60XX_Result_DeviceInvalid              // Connected device with address is not MPU6050
@@ -123,6 +124,9 @@ MPU60XX_Result MPU60XX_SetAccelerometer(I2C_HandleTypeDef* I2Cx,
 MPU60XX_Result MPU60XX_SetGyroscope(I2C_HandleTypeDef* I2Cx,
                                     MPU60XX* DataStruct,
                                     MPU60XX_Gyroscope GyroscopeSensitivity);
+                                    
+MPU60XX_Result MPU60XX_ReadTemperature(I2C_HandleTypeDef* I2Cx, MPU60XX* DataStruct);
+MPU60XX_Result MPU60XX_ReadAll(I2C_HandleTypeDef* I2Cx, MPU60XX* DataStruct);
 
 
 

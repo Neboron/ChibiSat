@@ -353,7 +353,7 @@ MPU60XX_Result MPU60XX_ReadAll(I2C_HandleTypeDef* I2Cx, MPU60XX* DataStruct)
 
 
 
-MPU60XX_Result SD_MPU60XX_EnableInterrupts(I2C_HandleTypeDef* I2Cx, MPU60XX* DataStruct)
+MPU60XX_Result MPU60XX_EnableInterrupts(I2C_HandleTypeDef* I2Cx, MPU60XX* DataStruct)
 {
 	uint8_t temp;
 	uint8_t reg[2] = {MPU60XX_INT_ENABLE,0x21};

@@ -49,7 +49,8 @@ extern volatile uint32_t millis_counter;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
-
+extern void PrintDebug(void);
+extern void ReadSensors(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -283,28 +284,7 @@ void TIM6_IRQHandler(void)
   /* USER CODE END TIM6_IRQn 0 */
   HAL_TIM_IRQHandler(&htim6);
   /* USER CODE BEGIN TIM6_IRQn 1 */
-    static uint16_t cnt;
-
-    if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_5) == 0)
-    {
-        HAL_TIM_Base_Stop_IT(&htim6);
-        cnt = 0;
-    }
-    
-    switch(cnt)
-    {
-        case 50:
-            Halt();
-        break;
-    }
-    
-    cnt++;
-    //HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-    //TIM2->CCR1=56000;
-    //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
-    //PrintString("\nButton1\n");
-    PrintInt(cnt);
-    SerialSendHandlar();
+    ReadSensors();
   /* USER CODE END TIM6_IRQn 1 */
 }
 
@@ -314,6 +294,7 @@ void TIM6_IRQHandler(void)
 void TIM7_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM7_IRQn 0 */
+  PrintDebug();
   HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
   /* USER CODE END TIM7_IRQn 0 */
   HAL_TIM_IRQHandler(&htim7);
